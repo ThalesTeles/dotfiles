@@ -1,0 +1,140 @@
+// -*- mode: jsonc -*-
+
+{
+  "layer": "top",
+  "height": 20,
+  "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
+  "modules-center": ["custom/power","clock","custom/dunst"],
+  "modules-right": ["network","bluetooth", "pulseaudio", "battery"],
+
+  // Modules Configuration
+  // "hyprland/window": {
+  //   "max-length": 50,
+  //   "separate-outputs": true
+  // },
+
+  "hyprland/workspaces": {
+    "persistent-workspaces": {
+        "*": 5
+      }
+  },
+
+  "network": {
+    "interval": 60,
+    "format-wifi": "",
+    "format-ethernet": "",
+    "format-disconnected": "",
+    "tooltip-format": "{ifname}",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-wifi": "{essid} {frequency}GHz",
+    "on-click": "kitty -e nmtui"
+  },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-bluetooth": "{icon}",
+    "format-muted": "",
+    "format-icons": {
+      "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+      "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": " ",
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""]
+    },
+    "on-click-right": "pavucontrol",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "ignored-sinks": ["Easy Effects Sink"],
+    "tooltip": true,
+    "tooltip-format": "{volume}%"
+  },
+
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-icons":{
+      "default": ["", "", "", "", ""],
+      "charging": [" ", " ", " ", " ", " "]
+      },
+    "on-click": "~/.config/rofi/applets/bin/battery.sh",
+    "max-length": 25,
+    "tooltip-format": "{capacity}%"
+
+  },
+
+  "clock": {
+    "format-alt": "{:%H:%M}",
+    "format": "{:%a %b %d %R}",
+    "tooltip": true,
+    "tooltip-format": "{:%Y-%m-%d}",
+    "calendar": {
+      "mode"          : "year",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "right",
+      "on-scroll"     : 1,
+      "format": {
+        "months":     "<span color='#ffead3'><b>{}</b></span>",
+        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions":  {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+
+  "custom/dunst": {
+    "format": "{}",
+    "exec": "~/.config/waybar/scripts/dunst.sh",
+    "on-click": "dunstctl set-paused toggle",
+    "on-click-right": "dunstctl history-pop",
+    "on-click-middle": "dunstctl close-all",
+    "interval": 1,
+    "return-type": "json",
+    "tooltip": true
+  },
+
+  "tray": {
+    "icon-size": 35,
+    "spacing": 6
+  },
+
+  "bluetooth": {
+	  "format-on": "",
+	  "format-off": "󰂲", 
+	  "format-connected": "󰂱",
+    "format-disabled": "󰂲",
+	  "tooltip-format": "{controller_alias}\n{controller_address}",
+	  "tooltip-format-connected": "{controller_alias} {controller_address}\n{device_enumerate}",
+	  "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "bluetoothctl show | grep -q \"Powered: yes\" && bluetoothctl power off || bluetoothctl power on",
+    "on-click-right": "blueman-manager"
+  },
+
+  "custom/power": {
+    "format" : "⏻",
+      "tooltip": false,
+      "menu": "on-click",
+      "menu-file": "~/.config/waybar/power_menu.xml",
+      "menu-actions": {
+        "lock": "hyprlock",
+        "shutdown": "shutdown 0",
+        "reboot": "reboot",
+        "suspend": "systemctl suspend",
+        "hibernate": "systemctl hibernate"
+      }
+  }
+}

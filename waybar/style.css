@@ -1,0 +1,139 @@
+@import "colors.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "Font Awesome", "JetBrainsMono Nerd Font Propo", "Roboto", "Helvetica", "Arial", "sans-serif";
+  font-size: 1.3rem;
+}
+
+window#waybar {
+  background-color: transparent;
+  color: @on_surface;
+}
+
+tooltip {
+  background-color: @secondary_container;
+  color: @on_secondary_container;
+  border: 1px solid;
+  border-radius: 100px;
+}
+
+#workspaces {
+  padding: 0 5px;
+  border-radius: 100px;
+  background-color: transparent;
+  margin: 5px 10px;
+  margin-left: 4px;
+  margin-top: 10px;
+}
+
+#workspaces button {
+  padding: 1px;
+  margin-right: 5px;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 10px;
+  box-shadow: none; 
+  text-shadow: none;
+  transition: all 0.2s ease-out;
+  background-color: @primary_container;
+  color: @on_primary_container;
+}
+
+#workspaces button.active {
+  border-radius: 100px;
+  min-width: 50px;
+  min-height: 10px;
+  font-weight: bold;
+  background-color: @primary;
+  color: @on_primary;
+}
+
+#workspaces button.urgent {
+  background-color: @error;
+  color: @on_error;
+}
+
+#workspaces button label {
+  background: transparent;
+}
+
+#workspaces button:hover {
+  background: @secondary; 
+  color: @on_secondary; 
+  box-shadow: none;
+}
+
+#custom-power,
+#bluetooth,
+#custom-dunst,
+#clock,
+#battery,
+#network,
+#pulseaudio{
+  background-color: @primary_container;
+  color: @on_primary_container;
+  border-radius: 100px;
+  padding: 5px 15px;
+  margin: 5px 5px;
+  margin-top: 10px;
+}
+
+menu {
+  background: @primary;
+  color: @on_primary;
+  border: none;
+  box-shadow: none;
+  border-radius: 15px;
+  padding: 5px; 
+  margin: 10px;  
+}
+
+menuitem {
+  border: none;
+  box-shadow: none;
+  border-radius: 10px; 
+  padding: 5px 10px;
+  transition: 0.2s;
+}
+
+menuitem:hover {
+  background: @primary_container;
+  color: @on_primary_container;
+}
+
+#battery{
+  margin-right: 10px;
+}
+
+#bluetooth{
+  font-size: 20px;
+}
+
+#network.disconnected,
+#bluetooth.off,
+#pulseaudio.muted{
+  background-color: @secondary_container;
+  color: @on_secondary_container;
+}
+
+#bluetooth.disabled,
+#network.disabled{
+  background-color: @error_container;
+  color: @on_error_container;
+}
+
+#tray{
+  margin: 5px 5px;
+  margin-top: 10px;
+}
+
+#custom-dunst {
+  font-size: 20px;
+}
+
+#network.disconnected {
+  background-color: @secondary_container;
+  color: @on_secondary_container;
+}
