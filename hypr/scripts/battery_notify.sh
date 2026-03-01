@@ -7,7 +7,7 @@ while true; do
 
     # Se estiver descarregando e a bateria for menor ou igual a 35%
     if [[ "$STATUS" == "Discharging" && "$BAT" -le 35 ]]; then
-        notify-send -u critical "⚠️ Bateria Fraca" "Nível em ${BAT}% - Conecte o carregador!"
+        notify-send -u critical "Bateria Fraca" "Nível em ${BAT}% - Conecte o carregador!"
         sleep 180 # Espera 3 min para não spammar notificação
     else
         sleep 60 # Verifica a cada 1 minuto

@@ -12,7 +12,7 @@ command = "sh"
 # The arguments that will be provided to the command.
 # Keywords like {{ mode }} or anything that works inside of hooks doesn't work here.
 # The last argument will be the image path.
-arguments = ["-c", "hyprctl hyprpaper reload ,\"$0\""]
+arguments = ["-c", "hyprctl hyprpaper wallpaper \",$0,\""]
 
 # For example, killing the wallpaper daemon. Usage is like a normal hook.
 # pre_hook = ""
