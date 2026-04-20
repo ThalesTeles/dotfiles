@@ -1,35 +1,27 @@
 #!/usr/bin/env bash
 
-# ------------------------------------------------------------------------------
-# Configurações Visuais (Edite aqui)
-# ------------------------------------------------------------------------------
-THEME_FILE="~/.config/rofi/launchers/type-1/style-5.rasi" # Seu tema base
-FONT_SIZE="JetBrainsMono Nerd Font 18"                     # Fonte maior
-WINDOW_WIDTH="50%"                                         # Largura da tela (ex: 600px ou 50%)
-WINDOW_HEIGHT="60%"                                        # Altura da tela
+THEME_FILE="~/.config/rofi/launchers/type-1/style-5.rasi" 
+FONT_SIZE="JetBrainsMono Nerd Font 18"                    
+WINDOW_WIDTH="50%"                                        
+WINDOW_HEIGHT="60%"                                       
 
-# ------------------------------------------------------------------------------
-# Lógica de Estado (Não mexer)
-# ------------------------------------------------------------------------------
-# O script recebe um argumento (0 ou 1) para saber se mostra os IDs
+
+# 1: true, 0: false
 SHOW_ID=${1:-0} 
 
 if [ "$SHOW_ID" -eq 1 ]; then
-    # Modo: Mostrar IDs
     DISPLAY_FLAG=""
     NEXT_STATE=0
-    PROMPT_TEXT="Clipboard (IDs On)"
-    TOGGLE_MSG="Ocultando IDs..."
+    PROMPT_TEXT="Clipboard IDs On"
+    TOGGLE_MSG="Ocultando IDs"
 else
-    # Modo: Esconder IDs (Padrão)
-    # -display-columns 2 mostra apenas a segunda coluna (o texto), mas retorna a linha toda
+    # Padrão
     DISPLAY_FLAG="-display-columns 2"
     NEXT_STATE=1
     PROMPT_TEXT="Clipboard"
-    TOGGLE_MSG="Mostrando IDs..."
+    TOGGLE_MSG="Mostrando IDs"
 fi
 
-# Define a sobrescrita de tema CSS
 OVERRIDE_THEME="
     window { width: ${WINDOW_WIDTH}; height: ${WINDOW_HEIGHT}; }
     * { font: \"${FONT_SIZE}\"; }
@@ -37,13 +29,9 @@ OVERRIDE_THEME="
     element-icon { size: 32px; }
 "
 
-# ------------------------------------------------------------------------------
-# Loop Principal
-# ------------------------------------------------------------------------------
 while true; do
-    # Gera a lista e chama o Rofi
-    # Alt+Delete (Code 10): Deletar Item
-    # Alt+i      (Code 11): Alternar IDs (Toggle)
+    # Alt+Delete Deletar Item
+    # Alt+i      Alternar IDs (Toggle)
     
     OUTPUT=$(cliphist list | rofi -dmenu \
         -theme "$THEME_FILE" \

@@ -1,18 +1,24 @@
 [config]
-# ...
+# If set to enabled, it will check for updates when you run the matugen command, notifying you that an update is avaiable.
+# WARNING: Matugen needs to be compiled with the `update-informer` feature for this to work.
+version_check = false
+
+# The color which should be used as the source_color if no good color was found from an image.
+# Can be defined in any css format.
+# The cli flag will override this if used.
+fallback_color = "#f8f411"
+
 reload_on_change = true
+# Which color to choose if multiple good colors were found from an image.
+# choices: [darkness, lightness, saturation, less-saturation, value, closest-to-fallback]
+# The cli flag will override this if used.
+prefer = "darkness"
 
 [config.wallpaper]
 # Whether to set the wallpaper or not
 set = true
 
-# The base command to run for applying the wallpaper, shouldn't have spaces in it.
-command = "sh"
-
-# The arguments that will be provided to the command.
-# Keywords like {{ mode }} or anything that works inside of hooks doesn't work here.
-# The last argument will be the image path.
-arguments = ["-c", "hyprctl hyprpaper wallpaper \",$0,\""]
+command = "hyprctl hyprpaper wallpaper ', {{image}}'"
 
 # For example, killing the wallpaper daemon. Usage is like a normal hook.
 # pre_hook = ""

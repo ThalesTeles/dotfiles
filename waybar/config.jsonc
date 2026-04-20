@@ -131,8 +131,8 @@
       "menu-file": "~/.config/waybar/power_menu.xml",
       "menu-actions": {
         "lock": "hyprlock",
-        "shutdown": "shutdown 0",
-        "reboot": "reboot",
+        "shutdown": "systemctl poweroff",
+        "reboot": "systemctl reboot",
         "suspend": "systemctl suspend",
         "hibernate": "systemctl hibernate"
       }
