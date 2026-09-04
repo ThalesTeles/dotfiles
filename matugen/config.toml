@@ -28,13 +28,16 @@ on_finish = "killall -SIGUSR2 dunst/"
 
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland_colors.conf'
-output_path = '~/.config/hypr/colors.conf'
+output_path = '~/.config/hypr/colors.lua'
 post_hook = 'hyprctl reload'
 
 [templates.hyprlock]
 input_path = '~/.config/matugen/templates/hyprlock_input_field.conf'
 output_path = '~/.config/hypr/hyprlock_input_field.conf'
-post_hook = 'hyprctl reload'
+
+[templates.hyprlock_colors]
+input_path = '~/.config/matugen/templates/hyprlock_colors.conf'
+output_path = '~/.config/hypr/colors.conf'
 
 [templates.kitty]
 input_path = '~/.config/matugen/templates/kitty_colors.conf'
