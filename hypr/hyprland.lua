@@ -7,6 +7,7 @@
 local colors = require("colors")
 
 require("monitors")
+require("workspaces")
 
 -------------------
 ---- AUTOSTART ----
