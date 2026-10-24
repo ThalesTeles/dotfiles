@@ -293,7 +293,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("dolphin"))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("pkill rofi ||/home/thales/.config/rofi/scripts/launcher_t1"))
 hl.bind(mainMod .. " + SHIFT" .. " + Q", hl.dsp.window.close())
 hl.bind(
-	mainMod .. " + M",
+	mainMod .. "+ SHIFT" .. " + M",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
 )
 hl.bind(mainMod .. " + V", hl.dsp.window.float())
