@@ -1,15 +1,28 @@
 #!/bin/bash
 
+# Evita várias instâncias rodando ao mesmo tempo
+exec 9>"${XDG_RUNTIME_DIR:-/tmp}/battery_notify.lock"
+flock -n 9 || exit 0
+
+LIMITE=35
+NOTIF_ID=9901 # ID fixo: cada notificação nova substitui a anterior
+ULTIMO=""
+
 while true; do
-    # Pega a porcentagem da bateria (BAT0 ou BAT1, verifique com 'ls /sys/class/power_supply/')
     BAT=$(cat /sys/class/power_supply/BAT*/capacity | head -n 1)
     STATUS=$(cat /sys/class/power_supply/BAT*/status | head -n 1)
 
-    # Se estiver descarregando e a bateria for menor ou igual a 35%
-    if [[ "$STATUS" == "Discharging" && "$BAT" -le 35 ]]; then
-        notify-send -u critical "Bateria Fraca" "Nível em ${BAT}% - Conecte o carregador!"
-        sleep 180 # Espera 3 min para não spammar notificação
-    else
-        sleep 60 # Verifica a cada 1 minuto
+    # Se estiver descarregando e a bateria for menor ou igual ao limite
+    if [[ "$STATUS" == "Discharging" && "$BAT" -le $LIMITE ]]; then
+        # Só notifica quando a porcentagem muda
+        if [[ "$BAT" != "$ULTIMO" ]]; then
+            dunstify -u critical -r "$NOTIF_ID" "Bateria Fraca" "Nível em ${BAT}% - Conecte o carregador!"
+            ULTIMO="$BAT"
+        fi
+    elif [[ -n "$ULTIMO" ]]; then
+        # Carregador conectado (ou bateria acima do limite): remove o aviso
+        dunstify -C "$NOTIF_ID"
+        ULTIMO=""
     fi
+    sleep 30
 done
