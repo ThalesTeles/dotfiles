@@ -3,16 +3,14 @@ auto-cpufreq
 clonehero
 ds4drv
 epson-inkjet-printer-escpr2
-epson-inkjet-printer-escpr2-debug
 gamemaker-beta-bin
 heroic-games-launcher-bin
 input-remapper-git
+losslesscut-bin
 matugen-bin
-matugen-bin-debug
 obexftp
 opentabletdriver
 pdfcpu-bin
-pdfcpu-bin-debug
 postman-bin
 protonup-qt
 qview

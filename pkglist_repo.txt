@@ -1,5 +1,7 @@
 7zip
 acpi
+adobe-source-code-pro-fonts
+adobe-source-serif-fonts
 alsa-firmware
 alsa-utils
 amd-ucode
@@ -23,6 +25,7 @@ dolphin
 dolphin-plugins
 dosfstools
 dotnet-sdk
+dotnet-sdk-8.0
 drawing
 dunst
 efibootmgr
@@ -35,8 +38,10 @@ ffmpeg
 filezilla
 firefox
 gamemode
+geckodriver
 git
 github-cli
+glow
 gnome-keyring
 graphviz
 grub
@@ -54,7 +59,8 @@ hyprpaper
 hyprpicker
 hyprpolkitagent
 hyprshot
-intellij-idea-community-edition
+inotify-tools
+intellij-idea-oss
 iw
 iwd
 jdk-openjdk
@@ -103,8 +109,10 @@ pnpm
 postgresql
 python-pip
 qt5-wayland
+rclone
 rofi
 rootlesskit
+rsync
 scrcpy
 sdparm
 slirp4netns
@@ -112,6 +120,7 @@ sof-firmware
 spotify-launcher
 steam
 strace
+terminus-font
 testdisk
 texinfo
 texlive-basic
@@ -120,6 +129,8 @@ texlive-langportuguese
 texlive-latex
 texlive-latexextra
 texlive-mathscience
+texlive-xetex
+tk
 tldr
 tmux
 tree
@@ -146,3 +157,4 @@ xdotool
 xournalpp
 zathura
 zathura-pdf-mupdf
+zram-generator
