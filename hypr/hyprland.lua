@@ -37,7 +37,6 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("~/.config/hypr/scripts/montar-drive.sh")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("otd-daemon")
-	hl.exec_cmd('sudo modprobe v4l2loopback exclusive_caps=1 card_label="Webcam-Scrcpy"')
 	hl.exec_cmd(
 		"scrcpy --video-source=camera --camera-size=1920x1080 --max-fps=60 --v4l2-sink=/dev/video0 --no-playback --audio-source=mic --no-audio-playback"
 	)
