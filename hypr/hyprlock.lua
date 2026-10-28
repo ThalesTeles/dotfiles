@@ -74,7 +74,7 @@ hl.config({
 
 hl.config({
     image = {
-        path = "~/pictures/discord_profile_picture.png",
+        path = "~/pictures/perfil/discord-profile-picture.png",
         size = 100,
         border_size = 2,
         border_color = colors.primary,
