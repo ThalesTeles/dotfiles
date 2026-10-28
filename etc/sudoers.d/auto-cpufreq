@@ -1,0 +1,2 @@
+thales ALL=(root) NOPASSWD: /usr/bin/auto-cpufreq --force\=performance, /usr/bin/auto-cpufreq --force\=powersave, /usr/bin/auto-cpufreq --force\=reset
+thales ALL=(root) NOPASSWD: /usr/bin/cp /etc/auto-cpufreq-perfis/normal.conf /etc/auto-cpufreq.conf, /usr/bin/cp /etc/auto-cpufreq-perfis/economia.conf /etc/auto-cpufreq.conf
