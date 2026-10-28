@@ -5,7 +5,7 @@
   "include": ["~/.config/waybar/calendar.jsonc"],
   "layer": "top",
   "height": 20,
-  "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
+  "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray", "mpris"],
   "modules-center": ["custom/power","clock","custom/dunst"],
   "modules-right": ["privacy", "cpu", "temperature", "network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery"],
 
@@ -137,6 +137,25 @@
     "format": "",
     "format-critical": "󰔏 {temperatureC}°C",
     "tooltip": false
+  },
+
+  // Mídia tocando (some quando não há player)
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "format-paused": "{status_icon} {title}",
+    "max-length": 30,
+    "player-icons": {
+      "default": "󰎆",
+      "spotify": "",
+      "firefox": ""
+    },
+    "status-icons": {
+      "paused": "󰏤"
+    },
+    "tooltip-format": "{artist} — {title}\n{album}\nClique: tocar/pausar · Rolar: faixa",
+    "on-click": "playerctl play-pause",
+    "on-scroll-up": "playerctl next",
+    "on-scroll-down": "playerctl previous"
   },
 
   "clock": {

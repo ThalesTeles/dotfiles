@@ -74,6 +74,7 @@ tooltip {
 #custom-microfone,
 #custom-brilho,
 #privacy,
+#mpris,
 #cpu,
 #temperature,
 #network,
@@ -145,6 +146,11 @@ menuitem:hover {
 #temperature.critical {
   background-color: @error_container;
   color: @on_error_container;
+}
+
+#mpris.paused {
+  background-color: @secondary_container;
+  color: @on_secondary_container;
 }
 
 /* Modo de energia + bateria formam uma pílula só */
