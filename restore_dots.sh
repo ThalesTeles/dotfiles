@@ -129,6 +129,8 @@ if confirmar "Habilitar os serviços e ajustar o relógio?"; then
     while read -r unit; do
         sudo systemctl enable "$unit" >/dev/null 2>&1 && echo "  -> $unit" || echo "  -> falhou: $unit (pacote ou unit ausente?)"
     done <services_system.txt
+    # Recarrega para o systemd enxergar as units copiadas para ~/.config/systemd/user na etapa 3
+    systemctl --user daemon-reload
     while read -r unit; do
         systemctl --user enable "$unit" >/dev/null 2>&1 && echo "  -> $unit (usuário)" || echo "  -> falhou: $unit (usuário)"
     done <services_user.txt
