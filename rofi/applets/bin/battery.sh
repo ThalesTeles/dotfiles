@@ -77,10 +77,11 @@ run_rofi() {
 ## 5. Execução
 CHOSEN="$(run_rofi)"
 
-# Troca o modo sem pedir senha (regra NOPASSWD em /etc/sudoers.d/auto-cpufreq)
+# Troca o modo sem pedir senha (regras NOPASSWD em /etc/sudoers.d/auto-cpufreq)
 set_mode() {
-  if sudo -n /usr/bin/auto-cpufreq --force="$1"; then
-    dunstify -u "$2" -r 9902 "Bateria" "$3"
+  local saida
+  if saida=$(~/.config/hypr/scripts/modo-energia.sh aplicar "$1"); then
+    dunstify -u "$2" -r 9902 "Bateria" "$3${saida:+\n$saida}"
   else
     dunstify -u critical -r 9902 "Bateria" "Falha ao trocar o modo (sudo sem senha não configurado?)"
   fi
@@ -88,6 +89,6 @@ set_mode() {
 
 case ${CHOSEN} in
 "$PERF") set_mode performance normal " Modo Performance Ativado" ;;
-"$SAVE") set_mode powersave low "  Modo Economia Ativado" ;;
-"$AUTO") set_mode reset normal "  Modo Automático Ativado" ;;
+"$SAVE") set_mode economia low "  Modo Economia Ativado" ;;
+"$AUTO") set_mode auto normal "  Modo Automático Ativado" ;;
 esac
