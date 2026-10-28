@@ -91,7 +91,7 @@ hl.config({
     label = {
         border_color = colors.primary,
         font_size = 18,
-        font_family = { "Metropolis Light", "Font Awesome 6 Free Solid" },
+        font_family = { "Metropolis Light", "JetBrainsMono Nerd Font" },
         position = { 0, 50 },
         halign = "center",
         valign = "bottom",
