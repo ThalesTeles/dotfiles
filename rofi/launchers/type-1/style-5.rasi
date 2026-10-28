@@ -9,12 +9,13 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,run,filebrowser,window,scripts:~/.config/rofi/scripts/utilitarios.sh";
     show-icons:                 true;
     display-drun:               "";
     display-run:                "";
     display-filebrowser:        "";
     display-window:             "";
+    display-scripts:            "";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
 }
