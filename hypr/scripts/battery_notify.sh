@@ -16,7 +16,7 @@ while true; do
     if [[ "$STATUS" == "Discharging" && "$BAT" -le $LIMITE ]]; then
         # Só notifica quando a porcentagem muda
         if [[ "$BAT" != "$ULTIMO" ]]; then
-            dunstify -u critical -r "$NOTIF_ID" "Bateria Fraca" "Nível em ${BAT}% - Conecte o carregador!"
+            dunstify -u critical -r "$NOTIF_ID" -i battery-caution-symbolic "Bateria ${BAT}%" "Conecte o carregador"
             ULTIMO="$BAT"
         fi
     elif [[ -n "$ULTIMO" ]]; then
