@@ -1,5 +1,5 @@
 return {
-    image = "/home/thales/pictures/wallpapers/kill_win_wallpaper.png",
+    image = "/home/thales/pictures/wallpapers/kill-win.png",
 
     background = "0xff16130b",
 
