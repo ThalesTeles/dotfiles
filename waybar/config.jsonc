@@ -168,7 +168,6 @@
     "calendar": {
       "mode"          : "year",
       "mode-mon-col"  : 3,
-      "weeks-pos"     : "right",
       "on-scroll"     : 1
       // As cores ("format") vêm do calendar.jsonc gerado pelo matugen
     },
