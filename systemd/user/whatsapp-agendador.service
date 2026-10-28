@@ -1,0 +1,30 @@
+# Servico de USUARIO (systemd --user). Nao precisa de sudo nem de DISPLAY,
+# porque o Firefox roda em modo headless (--headless).
+#
+# Instalar:
+#   mkdir -p ~/.config/systemd/user
+#   cp whatsapp-agendador.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now whatsapp-agendador
+#
+# Logs:
+#   journalctl --user -u whatsapp-agendador -f
+#
+# Pre-requisito: ter rodado `python login_whatsapp.py` uma vez.
+# Para o servico continuar rodando mesmo sem sessao aberta (opcional):
+#   loginctl enable-linger $USER
+
+[Unit]
+Description=Agendador de mensagens WhatsApp
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/thales/documents/estudos/programacao/projetos/automacao-mensagem-whatsapp
+ExecStart=/home/thales/documents/estudos/programacao/projetos/automacao-mensagem-whatsapp/.venv/bin/python agendador.py mensagens.md --headless
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

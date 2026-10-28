@@ -10,3 +10,7 @@ OpenTabletDriver/Logs/
 # Gerados pelo nwg-displays no formato antigo (a config usa os .lua)
 hypr/monitors.conf
 hypr/workspaces.conf
+
+# Links criados pelo systemctl enable (o restore recria a partir de services_user.txt)
+systemd/user/*.wants/
+systemd/user/pipewire-session-manager.service
