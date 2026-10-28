@@ -1,0 +1,4 @@
+# Permite ao battery_notify.sh ligar/desligar o turbo da CPU sem senha.
+# Libera SOMENTE estes dois comandos exatos.
+# Instalar: sudo install -m 0440 -o root -g root ~/.config/hypr/scripts/auto-cpufreq-turbo.sudoers /etc/sudoers.d/auto-cpufreq-turbo
+thales ALL=(root) NOPASSWD: /usr/bin/auto-cpufreq --turbo never, /usr/bin/auto-cpufreq --turbo auto
