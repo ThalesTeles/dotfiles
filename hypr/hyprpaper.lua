@@ -8,7 +8,7 @@
 
 --     monitor = 
 
---     path = ~/pictures/wallpapers/confy_pastel_landscape_wallpaper.jpg
+--     path = ~/pictures/wallpapers/cozy-pastel-landscape.jpg
 
 --     fit_mode = 
 
