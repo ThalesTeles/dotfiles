@@ -1,0 +1,17 @@
+cups.path
+auto-cpufreq.service
+avahi-daemon.service
+bluetooth.service
+cups.service
+getty@.service
+iwd.service
+NetworkManager-dispatcher.service
+NetworkManager-wait-online.service
+NetworkManager.service
+postgresql.service
+systemd-timesyncd.service
+valkey.service
+avahi-daemon.socket
+cups.socket
+systemd-userdbd.socket
+remote-fs.target
