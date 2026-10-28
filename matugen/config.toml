@@ -29,7 +29,7 @@ on_finish = "killall -SIGUSR2 dunst/"
 [templates.hyprland]
 input_path = '~/.config/matugen/templates/hyprland_colors.conf'
 output_path = '~/.config/hypr/colors.lua'
-post_hook = 'hyprctl reload'
+post_hook = 'hyprctl reload && ~/.config/hypr/scripts/modo-energia.sh reaplicar'
 
 [templates.hyprlock]
 input_path = '~/.config/matugen/templates/hyprlock_input_field.conf'
