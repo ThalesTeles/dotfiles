@@ -6,7 +6,7 @@
   "layer": "top",
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray", "mpris"],
-  "modules-center": ["custom/power","clock","custom/dunst"],
+  "modules-center": ["custom/power","clock","custom/dunst","idle_inhibitor"],
   "modules-right": ["privacy", "cpu", "temperature", "network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery"],
 
   // Modules Configuration
@@ -188,6 +188,17 @@
     "restart-interval": 5,
     "return-type": "json",
     "tooltip": true
+  },
+
+  // Não suspender: pausa o hypridle (escurecer, bloquear, desligar a tela e suspender)
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰛊"
+    },
+    "tooltip-format-activated": "Não suspender: ativado\nA tela não escurece, não bloqueia nem suspende\nClique: desativar",
+    "tooltip-format-deactivated": "Não suspender: desativado\nEscurece em 2,5 min, bloqueia em 5 min, desliga a tela em 5,5 min\ne suspende em 15 min na bateria · Clique: ativar"
   },
 
   "tray": {

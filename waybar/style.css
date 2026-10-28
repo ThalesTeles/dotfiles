@@ -68,6 +68,7 @@ tooltip {
 #custom-power,
 #bluetooth,
 #custom-dunst,
+#idle_inhibitor,
 #clock,
 #battery,
 #custom-modo-energia,
@@ -108,6 +109,25 @@ menuitem {
 menuitem:hover {
   background: @primary_container;
   color: @on_primary_container;
+}
+
+/* Notificações + não suspender formam uma pílula só */
+#custom-dunst {
+  border-radius: 100px 0 0 100px;
+  margin-right: 0;
+  padding-right: 6px;
+}
+
+#idle_inhibitor {
+  border-radius: 0 100px 100px 0;
+  margin-left: 0;
+  padding-left: 6px;
+  font-size: 20px;
+}
+
+#idle_inhibitor.activated {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
 }
 
 /* Wi-Fi + Bluetooth formam uma pílula só */
