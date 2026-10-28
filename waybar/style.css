@@ -16,7 +16,7 @@ tooltip {
   background-color: @secondary_container;
   color: @on_secondary_container;
   border: 1px solid;
-  border-radius: 100px;
+  border-radius: 15px;
 }
 
 #workspaces {
@@ -70,6 +70,7 @@ tooltip {
 #custom-dunst,
 #clock,
 #battery,
+#custom-modo-energia,
 #network,
 #pulseaudio{
   background-color: @primary_container;
@@ -103,8 +104,32 @@ menuitem:hover {
   color: @on_primary_container;
 }
 
+/* Modo de energia + bateria formam uma pílula só */
+#custom-modo-energia {
+  border-radius: 100px 0 0 100px;
+  margin-right: 0;
+  padding-right: 6px;
+}
+
 #battery{
+  border-radius: 0 100px 100px 0;
+  margin-left: 0;
+  padding-left: 6px;
   margin-right: 10px;
+}
+
+#custom-modo-energia.economia {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
+}
+
+#battery.warning:not(.charging) {
+  color: @error;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @error_container;
+  color: @on_error_container;
 }
 
 #bluetooth{

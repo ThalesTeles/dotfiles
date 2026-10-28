@@ -5,7 +5,7 @@
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
   "modules-center": ["custom/power","clock","custom/dunst"],
-  "modules-right": ["network","bluetooth", "pulseaudio", "battery"],
+  "modules-right": ["network","bluetooth", "pulseaudio", "custom/modo-energia", "battery"],
 
   // Modules Configuration
   // "hyprland/window": {
@@ -63,12 +63,24 @@
     "format": "{icon}",
     "format-icons":{
       "default": ["", "", "", "", ""],
-      "charging": [" ", " ", " ", " ", " "]
+      "charging": [" 󰚥", " 󰚥", " 󰚥", " 󰚥", " 󰚥"]
       },
     "on-click": "~/.config/rofi/applets/bin/battery.sh",
     "max-length": 25,
-    "tooltip-format": "{capacity}%"
+    "format-time": "{H}h{M:02}",
+    "tooltip-format": "{capacity}%",
+    "tooltip-format-discharging": "{capacity}% · {time} restantes\n{power:.1f} W · {cycles} ciclos",
+    "tooltip-format-charging": "{capacity}% · cheia em {time}\n{power:.1f} W · {cycles} ciclos",
+    "tooltip-format-full": "Carga completa · {cycles} ciclos"
+  },
 
+  // Ícone do modo de energia, colado à esquerda da bateria
+  "custom/modo-energia": {
+    "exec": "~/.config/waybar/scripts/modo-energia.sh",
+    "return-type": "json",
+    "interval": 10,
+    "signal": 8,
+    "on-click": "~/.config/rofi/applets/bin/battery.sh"
   },
 
   "clock": {

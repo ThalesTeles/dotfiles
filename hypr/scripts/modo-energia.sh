@@ -124,6 +124,7 @@ aplicar() {
         ;;
     esac
     echo "$1" >"$ESTADO/modo"
+    pkill -RTMIN+8 -x waybar # atualiza o ícone do modo na waybar (custom/modo-energia)
 }
 
 # Após reiniciar ou recarregar o Hyprland, os efeitos voltam pela config: reaplica a economia
