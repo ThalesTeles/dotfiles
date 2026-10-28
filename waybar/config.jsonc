@@ -7,7 +7,7 @@
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
   "modules-center": ["custom/power","clock","custom/dunst"],
-  "modules-right": ["network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery"],
+  "modules-right": ["privacy", "cpu", "temperature", "network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery"],
 
   // Modules Configuration
   // "hyprland/window": {
@@ -108,6 +108,35 @@
     "signal": 10,
     "on-scroll-up": "~/.config/hypr/scripts/modo-energia.sh brilho up",
     "on-scroll-down": "~/.config/hypr/scripts/modo-energia.sh brilho down"
+  },
+
+  // Só aparece enquanto algum app compartilha a tela (o microfone tem módulo próprio)
+  "privacy": {
+    "icon-size": 18,
+    "icon-spacing": 4,
+    "modules": [
+      { "type": "screenshare", "tooltip": true, "tooltip-icon-size": 24 }
+    ]
+  },
+
+  // Só aparecem quando passam do limite
+  "cpu": {
+    "interval": 5,
+    "states": { "alto": 80 },
+    "format": "",
+    "format-alto": "󰻠 {usage}%",
+    "tooltip": false
+  },
+
+  "temperature": {
+    "interval": 5,
+    // Sensor da CPU (k10temp, Tctl); caminho fixo porque o número do hwmon muda entre boots
+    "hwmon-path-abs": "/sys/devices/pci0000:00/0000:00:18.3/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 80,
+    "format": "",
+    "format-critical": "󰔏 {temperatureC}°C",
+    "tooltip": false
   },
 
   "clock": {

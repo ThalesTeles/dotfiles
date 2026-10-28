@@ -73,6 +73,9 @@ tooltip {
 #custom-modo-energia,
 #custom-microfone,
 #custom-brilho,
+#privacy,
+#cpu,
+#temperature,
 #network,
 #pulseaudio{
   background-color: @primary_container;
@@ -134,6 +137,14 @@ menuitem:hover {
 #custom-brilho.travado {
   background-color: @tertiary_container;
   color: @on_tertiary_container;
+}
+
+/* Alertas que só aparecem quando necessários */
+#privacy,
+#cpu.alto,
+#temperature.critical {
+  background-color: @error_container;
+  color: @on_error_container;
 }
 
 /* Modo de energia + bateria formam uma pílula só */
