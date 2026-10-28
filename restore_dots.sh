@@ -16,6 +16,12 @@ TUDO_SIM=false
 NAO_CONFIG=(etc .git .gitignore .bashrc .vimrc update_dots.sh restore_dots.sh
     pkglist_repo.txt pkglist_aur.txt services_system.txt services_user.txt)
 
+# Projetos pessoais clonados do GitHub: "<usuário/repositório> <destino relativo à home>"
+PROJETOS=(
+    "ThalesTeles/livros-organizacao documents/estudos/faculdade/livros-organizacao"
+    "ThalesTeles/automacao-mensagem-whatsapp documents/estudos/programacao/projetos/automacao-mensagem-whatsapp"
+)
+
 confirmar() {
     $TUDO_SIM && return 0
     local resp
@@ -46,7 +52,7 @@ echo "Backup do que for sobrescrito: $BACKUP"
 echo
 
 # 1. Pacotes dos repositórios oficiais
-echo "[1/6] Pacotes dos repositórios oficiais ($(wc -l <pkglist_repo.txt) na lista)"
+echo "[1/7] Pacotes dos repositórios oficiais ($(wc -l <pkglist_repo.txt) na lista)"
 if confirmar "Instalar com pacman?"; then
     # Pacotes que não existem mais nos repositórios fariam o pacman abortar tudo
     disponiveis=$(comm -12 <(sort -u pkglist_repo.txt) <(pacman -Slq | sort -u))
@@ -57,7 +63,7 @@ fi
 echo
 
 # 2. Pacotes do AUR
-echo "[2/6] Pacotes do AUR ($(grep -vc -- '-debug$' pkglist_aur.txt) na lista, sem os *-debug)"
+echo "[2/7] Pacotes do AUR ($(grep -vc -- '-debug$' pkglist_aur.txt) na lista, sem os *-debug)"
 if confirmar "Instalar com yay?"; then
     if ! command -v yay >/dev/null; then
         echo "  -> yay não encontrado, instalando yay-bin do AUR..."
@@ -78,7 +84,7 @@ for item in * .[!.]*; do
     [[ " ${NAO_CONFIG[*]} " == *" $item "* ]] && continue
     itens+=("$item")
 done
-echo "[3/6] Configurações do usuário em ~/.config: ${itens[*]}"
+echo "[3/7] Configurações do usuário em ~/.config: ${itens[*]}"
 if confirmar "Copiar para ~/.config (arquivos existentes vão para o backup)?"; then
     mkdir -p "$HOME/.config"
     for item in "${itens[@]}"; do
@@ -90,7 +96,7 @@ fi
 echo
 
 # 4. Arquivos da home
-echo "[4/6] Arquivos da home: .bashrc .vimrc"
+echo "[4/7] Arquivos da home: .bashrc .vimrc"
 if confirmar "Copiar para ~/?"; then
     for f in .bashrc .vimrc; do
         guardar "$HOME/$f"
@@ -102,7 +108,7 @@ echo
 
 # 5. Arquivos de sistema em /etc
 mapfile -t etc_files < <(cd etc && find . -type f | sed 's|^\.||' | sort)
-echo "[5/6] Arquivos de sistema: $(printf '/etc%s ' "${etc_files[@]}")"
+echo "[5/7] Arquivos de sistema: $(printf '/etc%s ' "${etc_files[@]}")"
 if confirmar "Instalar no /etc (pede a senha)?"; then
     for f in "${etc_files[@]}"; do
         destino="/etc$f"
@@ -123,8 +129,44 @@ if confirmar "Instalar no /etc (pede a senha)?"; then
 fi
 echo
 
-# 6. Serviços e relógio
-echo "[6/6] Serviços: $(wc -l <services_system.txt) do sistema e $(wc -l <services_user.txt) do usuário; relógio do hardware em UTC"
+# 6. Projetos pessoais (vêm antes dos serviços, que apontam para as pastas deles)
+echo "[6/7] Projetos pessoais do GitHub: $(for p in "${PROJETOS[@]}"; do echo -n "${p%% *} "; done)"
+if confirmar "Clonar os projetos e criar os ambientes virtuais (repositórios privados: precisa da chave SSH no GitHub)?"; then
+    for p in "${PROJETOS[@]}"; do
+        read -r repo destino <<<"$p"
+        destino="$HOME/$destino"
+        if [[ -e "$destino" ]]; then
+            echo "  -> $destino já existe, mantido"
+            continue
+        fi
+        mkdir -p "$(dirname "$destino")"
+        if ! git clone -q "git@github.com:$repo.git" "$destino"; then
+            echo "  -> falha ao clonar $repo (chave SSH configurada no GitHub?)"
+            continue
+        fi
+        if [[ -f "$destino/requirements.txt" ]]; then
+            python3 -m venv "$destino/.venv" && "$destino/.venv/bin/pip" install -q --disable-pip-version-check -r "$destino/requirements.txt"
+        fi
+        echo "  -> $repo em $destino"
+    done
+
+    # O que fica fora dos repositórios de propósito (segredos e dados pessoais)
+    livros="$HOME/documents/estudos/faculdade/livros-organizacao"
+    whatsapp="$HOME/documents/estudos/programacao/projetos/automacao-mensagem-whatsapp"
+    mkdir -p "$HOME/documents/estudos/faculdade/livros" # pasta vigiada pelo livros-organizar.path
+    if [[ -d "$livros" && ! -f "$livros/.env" ]]; then
+        echo "  ! crie $livros/.env com ANTHROPIC_API_KEY, GEMINI_API_KEY e LIVROS_RCLONE (veja o README)"
+    fi
+    if [[ -d "$whatsapp" && ! -f "$whatsapp/mensagens.md" ]]; then
+        cp "$whatsapp/mensagens.exemplo.md" "$whatsapp/mensagens.md"
+        echo "  ! $whatsapp/mensagens.md criado a partir do exemplo; preencha com as suas mensagens"
+        echo "  ! faça o login do WhatsApp uma vez: cd $whatsapp && .venv/bin/python login_whatsapp.py"
+    fi
+fi
+echo
+
+# 7. Serviços e relógio
+echo "[7/7] Serviços: $(wc -l <services_system.txt) do sistema e $(wc -l <services_user.txt) do usuário; relógio do hardware em UTC"
 if confirmar "Habilitar os serviços e ajustar o relógio?"; then
     while read -r unit; do
         sudo systemctl enable "$unit" >/dev/null 2>&1 && echo "  -> $unit" || echo "  -> falhou: $unit (pacote ou unit ausente?)"
