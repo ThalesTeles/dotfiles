@@ -110,6 +110,19 @@ menuitem:hover {
   color: @on_primary_container;
 }
 
+/* Wi-Fi + Bluetooth formam uma pílula só */
+#network {
+  border-radius: 100px 0 0 100px;
+  margin-right: 0;
+  padding-right: 6px;
+}
+
+#bluetooth {
+  border-radius: 0 100px 100px 0;
+  margin-left: 0;
+  padding-left: 6px;
+}
+
 /* Som + microfone formam uma pílula só */
 #pulseaudio {
   border-radius: 100px 0 0 100px;
