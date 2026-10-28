@@ -62,6 +62,12 @@ religar_bluetooth() {
     rm -f "$ESTADO/bluetooth-desligado"
 }
 
+# Atualiza os ícones de modo (custom/modo-energia) e de brilho (custom/brilho) na waybar
+avisar_waybar() {
+    pkill -RTMIN+8 -x waybar
+    pkill -RTMIN+10 -x waybar
+}
+
 # --- Brilho ---
 brilho_auto() {
     if na_tomada; then
@@ -69,6 +75,7 @@ brilho_auto() {
     else
         brightnessctl -q set "${BRILHO_ECONOMIA}%"
     fi
+    avisar_waybar
 }
 
 brilho() {
@@ -124,7 +131,6 @@ aplicar() {
         ;;
     esac
     echo "$1" >"$ESTADO/modo"
-    pkill -RTMIN+8 -x waybar # atualiza o ícone do modo na waybar (custom/modo-energia)
 }
 
 # Após reiniciar ou recarregar o Hyprland, os efeitos voltam pela config: reaplica a economia
@@ -154,10 +160,10 @@ monitor() {
 }
 
 case "$1" in
-aplicar) aplicar "$2" ;;
+aplicar) aplicar "$2" && avisar_waybar ;;
 monitor) monitor ;;
-reaplicar) reaplicar ;;
-brilho) brilho "$2" ;;
+reaplicar) reaplicar; avisar_waybar ;;
+brilho) brilho "$2"; avisar_waybar ;;
 *)
     echo "Uso: $0 aplicar <performance|economia|auto> | monitor | reaplicar | brilho <up|down>" >&2
     exit 1

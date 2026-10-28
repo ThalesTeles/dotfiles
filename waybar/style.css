@@ -72,6 +72,7 @@ tooltip {
 #battery,
 #custom-modo-energia,
 #custom-microfone,
+#custom-brilho,
 #network,
 #pulseaudio{
   background-color: @primary_container;
@@ -127,6 +128,12 @@ menuitem:hover {
 #custom-microfone.em-uso {
   background-color: @error_container;
   color: @on_error_container;
+}
+
+/* Brilho travado pelo modo Economia: mesma cor do ícone da economia */
+#custom-brilho.travado {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
 }
 
 /* Modo de energia + bateria formam uma pílula só */
