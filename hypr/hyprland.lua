@@ -36,6 +36,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("matugen image " .. colors.image)
 	hl.exec_cmd("~/.config/hypr/scripts/battery_notify.sh")
 	hl.exec_cmd("~/.config/hypr/scripts/modo-energia.sh monitor")
+	hl.exec_cmd("hypridle")
 	hl.exec_cmd("~/.config/hypr/scripts/montar-drive.sh")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("otd-daemon")
@@ -230,6 +231,9 @@ hl.config({
 	misc = {
 		force_default_wallpaper = 0, -- Set to 0 or 1 to disable the anime mascot wallpapers
 		disable_hyprland_logo = true, -- If true disables the random hyprland logo / anime girl background. :(
+		-- Mouse ou teclado religam a tela desligada pelo hypridle (rede de segurança se ele não rodar o on-resume)
+		mouse_move_enables_dpms = true,
+		key_press_enables_dpms = true,
 	},
 })
 
