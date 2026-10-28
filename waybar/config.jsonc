@@ -5,7 +5,7 @@
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
   "modules-center": ["custom/power","clock","custom/dunst"],
-  "modules-right": ["network","bluetooth", "pulseaudio", "custom/modo-energia", "battery"],
+  "modules-right": ["network","bluetooth", "pulseaudio", "custom/microfone", "custom/modo-energia", "battery"],
 
   // Modules Configuration
   // "hyprland/window": {
@@ -59,6 +59,16 @@
     "tooltip-format": "{desc} · {volume}%\nClique: mudo · Rolar: volume · Direito: pavucontrol"
   },
 
+  // Microfone: mudo, livre ou em uso (atualiza por eventos do PipeWire)
+  "custom/microfone": {
+    "exec": "~/.config/waybar/scripts/microfone.sh",
+    "return-type": "json",
+    "restart-interval": 5,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-click-right": "pavucontrol -t 4",
+    "on-scroll-up": "wpctl set-volume -l 1 @DEFAULT_AUDIO_SOURCE@ 5%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
+  },
 
   "battery": {
     "states": {

@@ -71,6 +71,7 @@ tooltip {
 #clock,
 #battery,
 #custom-modo-energia,
+#custom-microfone,
 #network,
 #pulseaudio{
   background-color: @primary_container;
@@ -102,6 +103,30 @@ menuitem {
 menuitem:hover {
   background: @primary_container;
   color: @on_primary_container;
+}
+
+/* Som + microfone formam uma pílula só */
+#pulseaudio {
+  border-radius: 100px 0 0 100px;
+  margin-right: 0;
+  padding-right: 6px;
+}
+
+#custom-microfone {
+  border-radius: 0 100px 100px 0;
+  margin-left: 0;
+  padding-left: 6px;
+}
+
+#custom-microfone.mudo {
+  background-color: @secondary_container;
+  color: @on_secondary_container;
+}
+
+/* Algum app está gravando */
+#custom-microfone.em-uso {
+  background-color: @error_container;
+  color: @on_error_container;
 }
 
 /* Modo de energia + bateria formam uma pílula só */
