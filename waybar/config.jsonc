@@ -121,13 +121,14 @@
     }
   },
 
+  // Atualiza por eventos do dunst (D-Bus), sem polling
   "custom/dunst": {
     "format": "{}",
     "exec": "~/.config/waybar/scripts/dunst.sh",
     "on-click": "dunstctl set-paused toggle",
     "on-click-right": "dunstctl history-pop",
     "on-click-middle": "dunstctl close-all",
-    "interval": 1,
+    "restart-interval": 5,
     "return-type": "json",
     "tooltip": true
   },
