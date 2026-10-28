@@ -148,7 +148,6 @@ wget
 wine-mono
 wireplumber
 wireshark-qt
-woff2-font-awesome
 wqy-zenhei
 xdg-desktop-portal-gtk
 xdg-desktop-portal-hyprland
