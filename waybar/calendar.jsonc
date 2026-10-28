@@ -1,0 +1,15 @@
+// Gerado pelo matugen a partir de ~/.config/matugen/templates/waybar_calendar.jsonc.
+// Cores do calendário do relógio, nas mesmas cores do Hyprland. Não edite à mão.
+{
+  "clock": {
+    "calendar": {
+      "format": {
+        "months":   "<span color='#dfc56d'><b>{}</b></span>",
+        "days":     "<span color='#e9e2d4'>{}</span>",
+        "weeks":    "<span color='#abd0b1'><b>S{}</b></span>",
+        "weekdays": "<span color='#d3c6a1'><b>{}</b></span>",
+        "today":    "<span background='#dfc56d' color='#3b2f00'><b>{}</b></span>"
+      }
+    }
+  }
+}

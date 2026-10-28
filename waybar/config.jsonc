@@ -1,11 +1,13 @@
 // -*- mode: jsonc -*-
 
 {
+  // Cores do calendário geradas pelo matugen (templates/waybar_calendar.jsonc)
+  "include": ["~/.config/waybar/calendar.jsonc"],
   "layer": "top",
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray"],
   "modules-center": ["custom/power","clock","custom/dunst"],
-  "modules-right": ["network","bluetooth", "pulseaudio", "custom/microfone", "custom/modo-energia", "battery"],
+  "modules-right": ["network", "bluetooth", "pulseaudio", "custom/microfone", "custom/modo-energia", "battery"],
 
   // Modules Configuration
   // "hyprland/window": {
@@ -99,22 +101,18 @@
   },
 
   "clock": {
-    "format-alt": "{:%H:%M}",
-    "format": "{:%a %b %d %R}",
+    // Data em português sem mudar o idioma do sistema (só este módulo)
+    "locale": "pt_BR.UTF-8",
+    "format-alt": "{:L%H:%M}",
+    "format": "{:L%a %d %b %R}",
     "tooltip": true,
-    "tooltip-format": "{:%Y-%m-%d}",
+    "tooltip-format": "<tt>{calendar}</tt>",
     "calendar": {
       "mode"          : "year",
       "mode-mon-col"  : 3,
       "weeks-pos"     : "right",
-      "on-scroll"     : 1,
-      "format": {
-        "months":     "<span color='#ffead3'><b>{}</b></span>",
-        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
-        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
-        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
-        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
-      }
+      "on-scroll"     : 1
+      // As cores ("format") vêm do calendar.jsonc gerado pelo matugen
     },
     "actions":  {
       "on-click-right": "mode",

@@ -53,6 +53,11 @@ input_path = '~/.config/matugen/templates/colors.css'
 output_path = '~/.config/waybar/colors.css'
 post_hook = 'pkill -SIGUSR2 waybar'
 
+[templates.waybar_calendar]
+input_path = '~/.config/matugen/templates/waybar_calendar.jsonc'
+output_path = '~/.config/waybar/calendar.jsonc'
+post_hook = 'pkill -SIGUSR2 waybar'
+
 [templates.dunst]
 input_path = "~/.config/matugen/templates/dunstrc.conf"
 output_path = "~/.config/dunst/dunstrc"
