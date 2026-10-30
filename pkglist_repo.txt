@@ -2,6 +2,7 @@
 acpi
 adobe-source-code-pro-fonts
 adobe-source-serif-fonts
+adw-gtk-theme
 alsa-firmware
 alsa-utils
 amd-ucode
@@ -59,6 +60,7 @@ hyprpaper
 hyprpicker
 hyprpolkitagent
 hyprshot
+hyprsunset
 inotify-tools
 intellij-idea-oss
 iw
@@ -109,6 +111,7 @@ pnpm
 postgresql
 python-pip
 qt5-wayland
+qt6ct
 rclone
 rofi
 rootlesskit
