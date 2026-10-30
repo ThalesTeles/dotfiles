@@ -34,15 +34,16 @@
 
   "pulseaudio": {
     "format": "{icon}",
-    "format-bluetooth": "{icon} ",
+    "format-bluetooth": "󰋋",
     "format-muted": "󰝟",
-    "format-bluetooth-muted": "󰝟 ",
+    "format-bluetooth-muted": "󰟎",
     // Em 0% mostra o alto-falante sem ondas (sem som, mas não mudo)
     "states": {
       "silencio": 0,
       "som": 1
     },
     "format-silencio": "󰕿",
+    "format-bluetooth-silencio": "󰋋",
     "format-icons": {
       "headphone": "",
       "hands-free": "",
