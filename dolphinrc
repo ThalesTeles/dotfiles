@@ -31,3 +31,6 @@ Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorth
 
 [Search]
 Location=Everywhere
+
+[UiSettings]
+ColorScheme=Matugen

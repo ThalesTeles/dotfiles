@@ -1,0 +1,43 @@
+/* Gerado pelo matugen a partir de ~/.config/matugen/templates/gtk.css. Não edite à mão.
+   Cores nomeadas do libadwaita: valem para todo app GTK4 e, com o tema adw-gtk3, para os GTK3. */
+
+@define-color accent_color {{colors.primary.default.hex}};
+@define-color accent_bg_color {{colors.primary.default.hex}};
+@define-color accent_fg_color {{colors.on_primary.default.hex}};
+
+@define-color destructive_color {{colors.error.default.hex}};
+@define-color destructive_bg_color {{colors.error_container.default.hex}};
+@define-color destructive_fg_color {{colors.on_error_container.default.hex}};
+@define-color error_color {{colors.error.default.hex}};
+@define-color error_bg_color {{colors.error_container.default.hex}};
+@define-color error_fg_color {{colors.on_error_container.default.hex}};
+
+@define-color success_color {{colors.tertiary.default.hex}};
+@define-color success_bg_color {{colors.tertiary_container.default.hex}};
+@define-color success_fg_color {{colors.on_tertiary_container.default.hex}};
+
+@define-color window_bg_color {{colors.surface.default.hex}};
+@define-color window_fg_color {{colors.on_surface.default.hex}};
+@define-color view_bg_color {{colors.surface_container_low.default.hex}};
+@define-color view_fg_color {{colors.on_surface.default.hex}};
+@define-color headerbar_bg_color {{colors.surface_container.default.hex}};
+@define-color headerbar_fg_color {{colors.on_surface.default.hex}};
+@define-color headerbar_backdrop_color {{colors.surface.default.hex}};
+@define-color sidebar_bg_color {{colors.surface_container_low.default.hex}};
+@define-color sidebar_fg_color {{colors.on_surface.default.hex}};
+@define-color sidebar_backdrop_color {{colors.surface.default.hex}};
+@define-color card_bg_color {{colors.surface_container.default.hex}};
+@define-color card_fg_color {{colors.on_surface.default.hex}};
+@define-color dialog_bg_color {{colors.surface_container_high.default.hex}};
+@define-color dialog_fg_color {{colors.on_surface.default.hex}};
+@define-color popover_bg_color {{colors.surface_container_high.default.hex}};
+@define-color popover_fg_color {{colors.on_surface.default.hex}};
+@define-color thumbnail_bg_color {{colors.surface_container.default.hex}};
+@define-color thumbnail_fg_color {{colors.on_surface.default.hex}};
+
+/* Janelas sem cantos próprios: quem arredonda é o Hyprland, assim o fundo preenche até a borda */
+window.csd, window.dialog, window.message, .message-dialog {
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
