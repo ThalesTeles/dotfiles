@@ -9,6 +9,7 @@ alias ls='ls --color=auto --group-directories-first'
 alias grep='grep --color=auto'
 PS1='[\u@\h \W]\$ '
 alias mwall='matugen image'
+alias atalhos='less ~/.config/kitty/atalhos.txt'
 
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in

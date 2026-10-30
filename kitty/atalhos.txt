@@ -1,0 +1,30 @@
+  ATALHOS DO TERMINAL (kitty)                      q para fechar
+
+  EDITAR A LINHA DE COMANDO
+    ctrl+backspace          apaga a palavra anterior
+    ctrl+delete             apaga a palavra seguinte
+    ctrl+shift+backspace    apaga a linha inteira
+    ctrl+← / ctrl+→         anda de palavra em palavra
+    ctrl+a / ctrl+e         vai para o início / fim da linha
+
+  COPIAR
+    ctrl+shift+y            copia o último comando executado
+    ctrl+shift+o            copia a saída do último comando
+    ctrl+shift+c / v        copia a seleção / cola
+
+  SELECIONAR PELO TECLADO (abre no Neovim)
+    ctrl+shift+g            saída do último comando
+    ctrl+shift+h            histórico inteiro do terminal
+      dentro dele:          v seleciona, y copia, q sai
+
+  ROLAR
+    shift+↑ / shift+↓       uma linha
+    shift+PgUp / PgDn       uma página
+    ctrl+shift+Home / End   topo / fim
+    ctrl+shift+z / x        comando anterior / seguinte
+
+  OUTROS
+    ctrl+shift+= / -        aumenta / diminui a fonte
+    ctrl+0                  volta a fonte ao normal
+    ctrl+shift+F5           recarrega a configuração
+    ctrl+shift+F1           mostra esta lista (ou: atalhos)
