@@ -118,6 +118,7 @@ sdparm
 slirp4netns
 sof-firmware
 spotify-launcher
+sqlitebrowser
 steam
 strace
 terminus-font
