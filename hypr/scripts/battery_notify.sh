@@ -1,26 +1,31 @@
 #!/bin/bash
+# Aviso de bateria fraca + troca automática para o modo Economia (via modo-energia.sh).
+# Abaixo do LIMITE, descarregando: muda para Economia e avisa. Na tomada: volta ao modo de antes.
 
 # Evita várias instâncias rodando ao mesmo tempo
 exec 9>"${XDG_RUNTIME_DIR:-/tmp}/battery_notify.lock"
 flock -n 9 || exit 0
 
-LIMITE=45 # abaixo disso: aviso de bateria + modo economia
+LIMITE=45 # abaixo disso: aviso de bateria + modo Economia
 NOTIF_ID=9901 # ID fixo: cada notificação nova substitui a anterior
-ECON_ID=9902  # aviso de saída do modo economia
+ECON_ID=9902  # aviso de volta ao modo anterior
+MODO_ENERGIA="$HOME/.config/hypr/scripts/modo-energia.sh"
+ESTADO="$HOME/.local/state/modo-energia"
+ANTES="$ESTADO/modo-antes-bateria" # existe enquanto a troca automática estiver valendo
 ULTIMO=""
-ECONOMIA=""
 
-# Modo economia: corta efeitos do Hyprland e desliga o turbo da CPU.
-# O turbo só muda se a regra de sudo (auto-cpufreq-turbo.sudoers) estiver instalada.
-economia_on() {
-    hyprctl eval 'hl.config({ animations = { enabled = false }, decoration = { blur = { enabled = false }, shadow = { enabled = false } } })' >/dev/null
-    sudo -n /usr/bin/auto-cpufreq --turbo never >/dev/null 2>&1
+modo_atual() { cat "$ESTADO/modo" 2>/dev/null || echo auto; }
+
+nome_modo() {
+    case "$1" in
+    performance) echo "Performance" ;;
+    economia) echo "Economia" ;;
+    *) echo "Automático" ;;
+    esac
 }
 
-economia_off() {
-    hyprctl eval 'hl.config({ animations = { enabled = true }, decoration = { blur = { enabled = true }, shadow = { enabled = true } } })' >/dev/null
-    sudo -n /usr/bin/auto-cpufreq --turbo auto >/dev/null 2>&1
-}
+# Eventos de energia (plugar/desplugar, mudança de carga) acordam o loop na hora
+coproc EVENTOS { exec udevadm monitor --udev --subsystem-match=power_supply; }
 
 while true; do
     BAT=$(cat /sys/class/power_supply/BAT*/capacity | head -n 1)
@@ -28,23 +33,35 @@ while true; do
 
     # Se estiver descarregando e a bateria for menor ou igual ao limite
     if [[ "$STATUS" == "Discharging" && "$BAT" -le $LIMITE ]]; then
+        # Troca uma vez por descarga; se depois você mudar o modo na mão, ele é respeitado
+        if [[ ! -f "$ANTES" ]]; then
+            modo_atual >"$ANTES"
+            [[ "$(modo_atual)" != economia ]] && "$MODO_ENERGIA" aplicar economia
+            ULTIMO=""
+        fi
+        # Um reload do Hyprland religa os efeitos: reaplica a economia
+        if [[ "$(modo_atual)" == economia && "$(hyprctl getoption animations:enabled)" == *"bool: true"* ]]; then
+            "$MODO_ENERGIA" reaplicar
+        fi
         # Só notifica quando a porcentagem muda
         if [[ "$BAT" != "$ULTIMO" ]]; then
-            # Reaplica a cada mudança: um reload do Hyprland religaria os efeitos
-            economia_on
-            ECONOMIA=1
-            dunstify -u critical -r "$NOTIF_ID" -i battery-caution-symbolic "Bateria ${BAT}%" "Conecte o carregador"$'\n'"Modo economia ativo"
+            dunstify -u critical -r "$NOTIF_ID" -i battery-caution-symbolic "Bateria ${BAT}%" "Conecte o carregador"$'\n'"Modo $(nome_modo "$(modo_atual)")"
             ULTIMO="$BAT"
         fi
-    elif [[ -n "$ULTIMO" ]]; then
-        # Carregador conectado (ou bateria acima do limite): remove o aviso
+    elif [[ -f "$ANTES" ]]; then
+        # Carregador conectado (ou bateria acima do limite): remove o aviso e volta ao modo de antes
         dunstify -C "$NOTIF_ID"
         ULTIMO=""
-        if [[ -n "$ECONOMIA" ]]; then
-            economia_off
-            ECONOMIA=""
-            dunstify -u low -r "$ECON_ID" -i battery-good-charging-symbolic "Modo economia desativado" "Efeitos e turbo restaurados"
+        anterior=$(cat "$ANTES")
+        rm -f "$ANTES"
+        if [[ "$(modo_atual)" == economia && "$anterior" != economia ]]; then
+            "$MODO_ENERGIA" aplicar "$anterior"
+            dunstify -u low -r "$ECON_ID" -i battery-good-charging-symbolic "Modo $(nome_modo "$anterior")" "Economia desativada no carregador"
         fi
     fi
-    sleep 30
+
+    # Espera um evento de energia (no máximo 30s); depois descarta a rajada de eventos
+    read -r -t 30 -u "${EVENTOS[0]}" _
+    sleep 1
+    while read -r -t 0.2 -u "${EVENTOS[0]}" _; do :; done
 done
