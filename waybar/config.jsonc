@@ -79,8 +79,8 @@
     },
     "format": "{icon}",
     "format-icons":{
-      "default": ["", "", "", "", ""],
-      "charging": [" 󰚥", " 󰚥", " 󰚥", " 󰚥", " 󰚥"]
+      "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
       },
     "on-click": "~/.config/rofi/applets/bin/battery.sh",
     "max-length": 25,
