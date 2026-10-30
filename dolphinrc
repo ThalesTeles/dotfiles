@@ -1,5 +1,5 @@
 [DetailsMode]
-PreviewSize=80
+PreviewSize=96
 
 [ExtractDialog]
 1920x1080 screen: Window-Maximized=true
@@ -10,7 +10,8 @@ Version=202
 ViewPropsTimestamp=2025,9,27,14,58,48.478
 
 [IconsMode]
-PreviewSize=224
+IconSize=208
+PreviewSize=176
 
 [InformationPanel]
 showHovered=false
@@ -27,3 +28,6 @@ ConfirmRenameFileType=false
 
 [PreviewSettings]
 Plugins=appimagethumbnail,audiothumbnail,glycin-heif,comicbookthumbnail,cursorthumbnail,djvuthumbnail,ebookthumbnail,exrthumbnail,directorythumbnail,imagethumbnail,glycin-image-rs,jpegthumbnail,glycin-jxl,kraorathumbnail,windowsexethumbnail,windowsimagethumbnail,opendocumentthumbnail,gsthumbnail,glycin-svg,svgthumbnail
+
+[Search]
+Location=Everywhere
