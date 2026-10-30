@@ -14,8 +14,8 @@ done
 
 # 2. Abordagem Explícita: Atualiza arquivos ocultos da raiz ~/
 echo "[2/5] Sincronizando arquivos ocultos explícitos..."
-cp ~/.bashrc ~/.vimrc ~/.latexmkrc ./
-echo "  -> .bashrc, .vimrc e .latexmkrc atualizados."
+cp ~/.bashrc ~/.inputrc ~/.vimrc ~/.latexmkrc ./
+echo "  -> .bashrc, .inputrc, .vimrc e .latexmkrc atualizados."
 
 # 3. Arquivos de sistema em /etc (espelhados em ./etc com o mesmo caminho)
 echo "[3/5] Sincronizando arquivos de sistema do /etc..."

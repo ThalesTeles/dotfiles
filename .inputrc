@@ -1,0 +1,9 @@
+$include /etc/inputrc
+
+# ctrl+backspace (o kitty envia ^H) apaga a palavra anterior
+"\C-h": backward-kill-word
+# ctrl+delete apaga a palavra seguinte
+"\e[3;5~": kill-word
+# ctrl+setas andam de palavra em palavra
+"\e[1;5D": backward-word
+"\e[1;5C": forward-word

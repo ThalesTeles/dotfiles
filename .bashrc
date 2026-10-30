@@ -17,5 +17,11 @@ case ":$PATH:" in
 esac
 export PATH=~/.npm-global/bin:$PATH
 
+# Copia o último comando executado (ctrl+shift+y no kitty envia ctrl+x ctrl+y)
+__copia_ultimo_comando() {
+    fc -ln -1 | sed 's/^[[:space:]]*//' | tr -d '\n' | wl-copy
+}
+bind -x '"\C-x\C-y": __copia_ultimo_comando'
+
 # Unity CLI
 case ":${PATH}:" in *:"$HOME/.local/bin":*) ;; *) export PATH="$HOME/.local/bin:$PATH" ;; esac
