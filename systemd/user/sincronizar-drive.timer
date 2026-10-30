@@ -1,0 +1,10 @@
+[Unit]
+Description=Sincroniza com o Google Drive 30 min depois do fim de cada ciclo
+
+[Timer]
+OnActiveSec=1min
+OnUnitInactiveSec=30min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,9 @@
+[Unit]
+Description=Bisync PC <-> Google Drive e cores das pastas sincronizadas
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/documents/sistema/plano-organizacao/scripts/sincronizar.sh
+Nice=10
+IOSchedulingClass=idle
