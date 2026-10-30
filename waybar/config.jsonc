@@ -6,8 +6,8 @@
   "layer": "top",
   "height": 20,
   "modules-left": ["hyprland/workspaces", "hyprland/submap", "tray", "mpris"],
-  "modules-center": ["custom/power","clock","custom/dunst","idle_inhibitor"],
-  "modules-right": ["privacy", "cpu", "temperature", "network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery"],
+  "modules-center": ["clock","custom/dunst","custom/luz-noturna","idle_inhibitor"],
+  "modules-right": ["privacy", "custom/atualizacoes", "cpu", "temperature", "network", "bluetooth", "pulseaudio", "custom/microfone", "custom/brilho", "custom/modo-energia", "battery", "group/energia"],
 
   // Modules Configuration
   // "hyprland/window": {
@@ -18,18 +18,30 @@
   "hyprland/workspaces": {
     "persistent-workspaces": {
         "*": 5
-      }
+      },
+    // Bolinhas: cheia = tem janela, vazada = vazio; o ativo continua sendo a pílula larga
+    "format": "{icon}",
+    "format-icons": {
+      "active": "󰝥",
+      "default": "󰝥",
+      "empty": "󰄰"
+    }
   },
 
   "network": {
     "interval": 5,
-    "format-wifi": "",
+    // Ícone muda com a força do sinal (0–20%, …, 80–100%)
+    "format-wifi": "{icon}",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "format-ethernet": "",
     "format-disconnected": "",
-    "tooltip-format-wifi": "{essid} · sinal {signalStrength}% · {frequency} GHz\n{ipaddr} via {ifname}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
+    "tooltip-format-wifi": "{essid} · sinal {signalStrength}% · {frequency} GHz\n{ipaddr} via {ifname}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}\nClique: desligar Wi-Fi · Direito: nmtui",
     "tooltip-format-ethernet": "Cabo · {ifname}\n{ipaddr}\n↓ {bandwidthDownBytes}  ↑ {bandwidthUpBytes}",
-    "tooltip-format-disconnected": "Sem conexão",
-    "on-click": "kitty -e nmtui"
+    "format-disabled": "󰤮",
+    "tooltip-format-disconnected": "Sem conexão\nClique: desligar Wi-Fi · Direito: nmtui",
+    "tooltip-format-disabled": "Wi-Fi desligado\nClique: ligar · Direito: nmtui",
+    "on-click": "nmcli radio wifi | grep -q enabled && nmcli radio wifi off || nmcli radio wifi on",
+    "on-click-right": "kitty -e nmtui"
   },
 
   "pulseaudio": {
@@ -74,11 +86,17 @@
   },
 
   "battery": {
+    // "baixa" só mostra a porcentagem; "warning" e "critical" também mudam a cor
     "states": {
+      "baixa": 35,
       "warning": 30,
       "critical": 15
     },
     "format": "{icon}",
+    // Porcentagem só aparece a partir de 35%
+    "format-baixa": "{icon} {capacity}%",
+    "format-warning": "{icon} {capacity}%",
+    "format-critical": "{icon} {capacity}%",
     "format-icons":{
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
@@ -203,7 +221,7 @@
   },
 
   "tray": {
-    "icon-size": 35,
+    "icon-size": 20,
     "spacing": 6
   },
 
@@ -222,17 +240,70 @@
     "on-click-right": "blueman-manager"
   },
 
+  // Gaveta de energia (canto direito, para o ⏻ não sair do lugar ao abrir): passar o mouse no ⏻ revela as ações; clique no ⏻ abre o wlogout.
+  // Reiniciar e desligar pedem duplo clique para evitar acidentes.
+  "group/energia": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "energia-acao",
+      "transition-left-to-right": false
+    },
+    "modules": ["custom/power", "custom/bloquear", "custom/suspender", "custom/reiniciar", "custom/desligar"]
+  },
+
   "custom/power": {
-    "format" : "⏻",
-      "tooltip": false,
-      "menu": "on-click",
-      "menu-file": "~/.config/waybar/power_menu.xml",
-      "menu-actions": {
-        "lock": "hyprlock",
-        "shutdown": "systemctl poweroff",
-        "reboot": "systemctl reboot",
-        "suspend": "systemctl suspend",
-        "hibernate": "systemctl hibernate"
-      }
+    "format": "⏻",
+    "tooltip-format": "Clique: wlogout",
+    "on-click": "wlogout"
+  },
+
+  "custom/bloquear": {
+    "format": "󰌾",
+    "tooltip-format": "Bloquear",
+    "on-click": "hyprlock"
+  },
+
+  "custom/suspender": {
+    "format": "󰤄",
+    "tooltip-format": "Suspender",
+    "on-click": "systemctl suspend"
+  },
+
+  "custom/reiniciar": {
+    "format": "󰜉",
+    "tooltip-format": "Reiniciar (duplo clique)",
+    "on-double-click": "systemctl reboot"
+  },
+
+  "custom/desligar": {
+    "format": "󰐥",
+    "tooltip-format": "Desligar (duplo clique)",
+    "on-double-click": "systemctl poweroff"
+  },
+
+  // Só aparece quando há 10 ou mais atualizações (repositórios + AUR); confere a cada hora
+  "custom/atualizacoes": {
+    "exec": "~/.config/waybar/scripts/atualizacoes.sh",
+    "return-type": "json",
+    "interval": 3600,
+    "signal": 9,
+    "on-click": "kitty -e sh -c 'yay; pkill -RTMIN+9 waybar'",
+    "on-click-right": "pkill -RTMIN+9 waybar"
+  },
+
+  // Luz noturna (hyprsunset): clique liga/desliga, rolar ajusta a temperatura, direito abre o slider.
+  // Fica oculta se o hyprsunset não estiver instalado.
+  "custom/luz-noturna": {
+    "exec": "~/.config/waybar/scripts/luz-noturna.sh",
+    "return-type": "json",
+    "interval": 60,
+    "signal": 11,
+    "on-click": "~/.config/waybar/scripts/luz-noturna.sh alternar",
+    "on-click-right": "~/.config/waybar/scripts/luz-noturna.sh slider",
+    // Touchpad manda muitos eventos por rolagem; só conta a partir deste limiar
+    "smooth-scrolling-threshold": 2,
+    "on-scroll-up": "~/.config/waybar/scripts/luz-noturna.sh mais-quente",
+    "on-scroll-down": "~/.config/waybar/scripts/luz-noturna.sh mais-fria"
   }
 }

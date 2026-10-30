@@ -1,5 +1,7 @@
 @import "colors.css";
 
+/* Tamanho único da barra: todo ícone e texto herda 1.3rem (proporcional à fonte do sistema).
+   Para aumentar ou diminuir a barra inteira, mude só este valor. */
 * {
   border: none;
   border-radius: 0;
@@ -15,7 +17,7 @@ window#waybar {
 tooltip {
   background-color: @secondary_container;
   color: @on_secondary_container;
-  border: 1px solid;
+  border: 1px solid @outline_variant;
   border-radius: 15px;
 }
 
@@ -65,7 +67,8 @@ tooltip {
   box-shadow: none;
 }
 
-#custom-power,
+#custom-atualizacoes,
+#custom-luz-noturna,
 #bluetooth,
 #custom-dunst,
 #idle_inhibitor,
@@ -86,6 +89,74 @@ tooltip {
   padding: 5px 15px;
   margin: 5px 5px;
   margin-top: 10px;
+}
+
+/* Hover: um anel em @primary, sem trocar a cor de estado da pílula */
+#custom-atualizacoes:hover,
+#custom-luz-noturna:hover,
+#bluetooth:hover,
+#custom-dunst:hover,
+#idle_inhibitor:hover,
+#clock:hover,
+#battery:hover,
+#custom-modo-energia:hover,
+#custom-microfone:hover,
+#custom-brilho:hover,
+#privacy:hover,
+#mpris:hover,
+#cpu:hover,
+#temperature:hover,
+#network:hover,
+#pulseaudio:hover,
+#energia label:hover {
+  box-shadow: inset 0 0 0 2px @primary;
+}
+
+#custom-atualizacoes,
+#custom-luz-noturna,
+#bluetooth,
+#custom-dunst,
+#idle_inhibitor,
+#clock,
+#battery,
+#custom-modo-energia,
+#custom-microfone,
+#custom-brilho,
+#privacy,
+#mpris,
+#cpu,
+#temperature,
+#network,
+#pulseaudio,
+#energia label {
+  transition: box-shadow 0.2s ease-out;
+}
+
+/* Gaveta de energia: o grupo inteiro é uma pílula; as ações aparecem ao passar o mouse no ⏻ */
+#energia {
+  background-color: @primary_container;
+  color: @on_primary_container;
+  border-radius: 100px;
+  margin: 5px 5px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+#energia label {
+  padding: 5px 12px;
+  border-radius: 100px;
+}
+
+#custom-reiniciar:hover,
+#custom-desligar:hover {
+  background-color: @error_container;
+  color: @on_error_container;
+}
+
+/* Atualizações pendentes */
+#custom-atualizacoes {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
 }
 
 menu {
@@ -118,11 +189,23 @@ menuitem:hover {
   padding-right: 6px;
 }
 
+#custom-luz-noturna {
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+#custom-luz-noturna.ligada {
+  background-color: @tertiary_container;
+  color: @on_tertiary_container;
+}
+
 #idle_inhibitor {
   border-radius: 0 100px 100px 0;
   margin-left: 0;
   padding-left: 6px;
-  font-size: 20px;
 }
 
 #idle_inhibitor.activated {
@@ -186,7 +269,7 @@ menuitem:hover {
   color: @on_secondary_container;
 }
 
-/* Modo de energia + bateria formam uma pílula só */
+/* Modo de energia + bateria formam uma pílula só (o brilho fica numa pílula própria) */
 #custom-modo-energia {
   border-radius: 100px 0 0 100px;
   margin-right: 0;
@@ -197,7 +280,6 @@ menuitem:hover {
   border-radius: 0 100px 100px 0;
   margin-left: 0;
   padding-left: 6px;
-  margin-right: 10px;
 }
 
 #custom-modo-energia.economia {
@@ -212,10 +294,6 @@ menuitem:hover {
 #battery.critical:not(.charging) {
   background-color: @error_container;
   color: @on_error_container;
-}
-
-#bluetooth{
-  font-size: 20px;
 }
 
 #network.disconnected,
@@ -236,11 +314,3 @@ menuitem:hover {
   margin-top: 10px;
 }
 
-#custom-dunst {
-  font-size: 20px;
-}
-
-#network.disconnected {
-  background-color: @secondary_container;
-  color: @on_secondary_container;
-}
