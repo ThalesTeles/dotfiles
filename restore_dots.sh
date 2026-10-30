@@ -13,7 +13,7 @@ TUDO_SIM=false
 [[ "${1:-}" == "--sim" ]] && TUDO_SIM=true
 
 # Itens da raiz do repo que não vão para o ~/.config
-NAO_CONFIG=(etc .git .gitignore .bashrc .vimrc update_dots.sh restore_dots.sh
+NAO_CONFIG=(etc .git .gitignore .bashrc .vimrc .latexmkrc update_dots.sh restore_dots.sh
     pkglist_repo.txt pkglist_aur.txt services_system.txt services_user.txt)
 
 # Projetos pessoais clonados do GitHub: "<usuário/repositório> <destino relativo à home>"
@@ -96,9 +96,9 @@ fi
 echo
 
 # 4. Arquivos da home
-echo "[4/7] Arquivos da home: .bashrc .vimrc"
+echo "[4/7] Arquivos da home: .bashrc .vimrc .latexmkrc"
 if confirmar "Copiar para ~/?"; then
-    for f in .bashrc .vimrc; do
+    for f in .bashrc .vimrc .latexmkrc; do
         guardar "$HOME/$f"
         cp "$f" "$HOME/$f"
         echo "  -> ~/$f"
