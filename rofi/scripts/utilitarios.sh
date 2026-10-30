@@ -49,7 +49,7 @@ case "$1" in
              rclone config reconnect gdrive: && ~/.config/hypr/scripts/montar-drive.sh; echo; read -rp "Enter para fechar"' ;;
     "Organizar livros"*)
         # o serviço identifica os livros novos de faculdade/livros (IA), classifica pelo PPC, cria os links
-        # nas disciplinas e envia ao gdrive:faculdade; ao terminar ele mesmo avisa o resumo
+        # nas disciplinas e envia ao gdrive:faculdade-livros; ao terminar ele mesmo avisa o resumo
         avisar "Livros" "Organizando os livros novos…"
         solto bash -c 'systemctl --user start livros-organizar.service ||
             notify-send -u critical -a Livros "Livros" "A organização falhou. Veja: journalctl --user -u livros-organizar -n 50"' ;;
